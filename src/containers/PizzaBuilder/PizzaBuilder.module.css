@@ -1,0 +1,12 @@
+.PizzaBuilder {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  top: 10%;
+  left: 0;
+  background-color: #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -1,0 +1,21 @@
+.Pizza {
+  position: relative;
+  background-color: rgb(230, 202, 113);
+  height: 60rem;
+  width: 60rem;
+  border-radius: 50%;
+  box-shadow: 0 0.3rem 0.4rem #ccc;
+}
+
+.Pizza::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  height: 80%;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: rgb(231, 212, 158);
+  z-index: 1;
+}

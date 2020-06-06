@@ -1,0 +1,10 @@
+.Ingredients {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  height: 75%;
+  width: 75%;
+  z-index: 2;
+  border-radius: 50%;
+}

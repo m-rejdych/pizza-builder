@@ -1,0 +1,11 @@
+.Orders {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  min-height: 90%;
+  width: 100%;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

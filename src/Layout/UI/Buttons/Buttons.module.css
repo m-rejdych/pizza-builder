@@ -1,0 +1,19 @@
+.Button {
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.Button:focus {
+  outline: none;
+}
+
+.Green {
+  color: green;
+}
+
+.Red {
+  color: red;
+}
