@@ -25,7 +25,6 @@ class orders extends Component {
         });
       }
       this.setState({ loading: false, orders });
-      console.log(this.state);
     } catch (error) {
       this.setState({ loading: false });
       console.log(error);
@@ -44,7 +43,6 @@ class orders extends Component {
         />
       );
     }
-    console.log(orders);
     let content;
     this.state.loading ? (content = <Spinner />) : (content = orders);
 

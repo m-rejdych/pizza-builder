@@ -29,10 +29,6 @@ class PizzaBuilder extends Component {
     price: PRICES.pizzaDough,
   };
 
-  componentDidMount() {
-    console.log(this.state.ingredients);
-  }
-
   toggleIngredientHandler = (ingredient) => {
     const prevState = { ...this.state };
     const { ingredients } = prevState;
