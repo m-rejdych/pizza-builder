@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import styles from './App.module.css';
 import PizzaBuilder from './containers/PizzaBuilder/PizzaBuilder';

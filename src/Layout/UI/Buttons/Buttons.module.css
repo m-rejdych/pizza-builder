@@ -17,3 +17,8 @@
 .Red {
   color: red;
 }
+
+.Disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}

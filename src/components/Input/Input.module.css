@@ -1,0 +1,41 @@
+.Input {
+  width: 100%;
+  height: 4rem;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 5px;
+  font-size: 2.2rem;
+  padding-left: 1rem;
+}
+
+.Input:focus {
+  outline: none;
+}
+
+.Invalid {
+  border: 1px solid red;
+  background-color: rgb(250, 104, 104);
+}
+
+.InputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.InvalidityMessage {
+  position: relative;
+  background-color: red;
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.4rem;
+  display: inline-block;
+  margin-left: 0.5rem;
+  border-radius: 0 0 5px 5px;
+}
+
+.Capitalize {
+  text-transform: capitalize;
+}

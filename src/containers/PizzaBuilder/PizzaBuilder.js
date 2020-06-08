@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import styles from './PizzaBuilder.module.css';
 import Pizza from '../../components/Pizza/Pizza';
 import OrderMaker from '../../components/OrderMaker/OrderMaker';
-import Backdrop from '../../Layout/Backdrop/Backdrop';
-import Modal from '../../Layout/Modal/Modal';
+import Backdrop from '../../Layout/UI/Backdrop/Backdrop';
+import Modal from '../../Layout/UI/Modal/Modal';
 
 const PRICES = {
   pizzaDough: 6.99,

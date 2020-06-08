@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import styles from './Orders.module.css';
 import Order from './Order/Order';
 import axios from '../../axiosOrders';
-import Spinner from '../../components/Spinner/Spinner';
-
+import Spinner from '../../Layout/UI/Spinner/Spinner';
 class orders extends Component {
   state = {
     orders: [],

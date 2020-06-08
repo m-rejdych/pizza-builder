@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './Modal.module.css';
-import Button from '../UI/Buttons/Buttons';
+import Button from '../Buttons/Buttons';
 
 const modal = (props) => (
   <div onClick={props.toggleBackdrop} className={styles.Modal}>
