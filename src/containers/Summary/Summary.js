@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import { connect } from 'react-redux';
 
 import styles from './Summary.module.css';
 import Pizza from '../../components/Pizza/Pizza';
@@ -8,21 +8,13 @@ import Breakline from '../../components/Breakline/Breakline';
 
 class Summary extends Component {
   render() {
-    const queries = queryString.parse(this.props.location.search);
-    const ingredients = {};
-    for (let query in queries) {
-      queries[query] === 'true'
-        ? (ingredients[query] = true)
-        : (ingredients[query] = false);
-    }
-
     return (
       <div className={styles.Summary}>
         <div className={styles.PizzaContainer}>
-          <Pizza ingredients={ingredients} />
+          <Pizza ingredients={this.props.ingredients} />
         </div>
         <div className={styles.PurchaseContainer}>
-          <p>Price: {Number(queries.price) + '$'}</p>
+          <p>Price: {Number(this.props.price.toFixed(2)) + '$'}</p>
           <Breakline />
           <OrderForm />
         </div>
@@ -31,4 +23,11 @@ class Summary extends Component {
   }
 }
 
-export default Summary;
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(Summary);

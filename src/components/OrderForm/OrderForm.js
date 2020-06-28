@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import styles from './OrderForm.module.css';
@@ -110,19 +110,14 @@ class OrderForm extends Component {
 
     try {
       this.setState({ loading: true });
-      const query = queryString.parse(this.props.location.search);
-      const ingredients = { ...query };
-      delete ingredients.price;
-      const { price } = query;
-
       const contactData = {};
       for (let dataType in this.state.orderForm) {
         contactData[dataType] = this.state.orderForm[dataType].value;
       }
 
       const data = {
-        ingredients,
-        price,
+        ingredients: this.props.ingredients,
+        price: this.props.price.toFixed(2),
         contactData,
       };
 
@@ -149,7 +144,7 @@ class OrderForm extends Component {
         ? (formValid = true)
         : (formValid = false);
     }
-
+    console.log(formValid);
     this.setState({ orderForm, formValid });
   };
 
@@ -209,4 +204,11 @@ class OrderForm extends Component {
   }
 }
 
-export default withRouter(OrderForm);
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(OrderForm));

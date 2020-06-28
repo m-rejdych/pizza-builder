@@ -1,52 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import styles from './PizzaBuilder.module.css';
 import Pizza from '../../components/Pizza/Pizza';
 import OrderMaker from '../../components/OrderMaker/OrderMaker';
 import Backdrop from '../../Layout/UI/Backdrop/Backdrop';
 import Modal from '../../Layout/UI/Modal/Modal';
-
-const PRICES = {
-  pizzaDough: 6.99,
-  cheese: 3.99,
-  salami: 4.99,
-  olives: 2.99,
-  ham: 4.99,
-  chicken: 5.99,
-};
+import * as actionTypes from '../../store/actions';
 
 class PizzaBuilder extends Component {
   state = {
-    ingredients: {
-      pizzaDough: true,
-      cheese: false,
-      salami: false,
-      olives: false,
-      ham: false,
-      chicken: false,
-    },
     showBackdrop: false,
-    price: PRICES.pizzaDough,
   };
 
-  toggleIngredientHandler = (ingredient) => {
-    const prevState = { ...this.state };
-    const { ingredients } = prevState;
-    ingredients[ingredient] = !prevState.ingredients[ingredient];
-    this.setState({ ingredients });
-
-    this.changePriceHandler(ingredient);
-  };
-
-  changePriceHandler = (ingredient) => {
-    this.state.ingredients[ingredient]
-      ? this.setState((prevState) => {
-          return { price: prevState.price + PRICES[ingredient] };
-        })
-      : this.setState((prevState) => {
-          return { price: prevState.price - PRICES[ingredient] };
-        });
-  };
+  componentDidMount() {
+    if (
+      Object.keys(this.props.ingredients).some(
+        (ingredient) => !this.props.ingredients[ingredient]
+      )
+    ) {
+      this.props.resetIngredients();
+    }
+  }
 
   toggleBackdropHandler = () => {
     this.setState((prevState) => {
@@ -55,20 +30,7 @@ class PizzaBuilder extends Component {
   };
 
   gotoSummaryHandler = () => {
-    const { ingredients } = this.state;
-    const entries = Object.entries(ingredients);
-    let search = '?';
-    for (let entry of entries) {
-      search += `${entry[0]}=${entry[1]}&`;
-    }
-
-    const { price } = this.state;
-    search += `price=${price.toFixed(2)}`;
-
-    this.props.history.push({
-      pathname: '/summary',
-      search,
-    });
+    this.props.history.push('/summary');
   };
 
   render() {
@@ -86,16 +48,31 @@ class PizzaBuilder extends Component {
     return (
       <div className={styles.PizzaBuilder}>
         {backdrop}
-        <Pizza ingredients={this.state.ingredients} />
+        <Pizza ingredients={this.props.ingredients} />
         <OrderMaker
-          ingredients={this.state.ingredients}
-          toggleIngredient={this.toggleIngredientHandler}
+          ingredients={this.props.ingredients}
+          toggleIngredient={this.props.toggleIngredient}
           toggleBackdrop={this.toggleBackdropHandler}
-          price={this.state.price.toFixed(2)}
+          price={this.props.price.toFixed(2)}
         />
       </div>
     );
   }
 }
 
-export default PizzaBuilder;
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleIngredient: (igType) =>
+      dispatch({ type: actionTypes.TOGGLE_INGREDIENT, igType }),
+    resetIngredients: () => dispatch({ type: actionTypes.INGREDIENTS_RESET }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PizzaBuilder);
