@@ -6,7 +6,7 @@ import Pizza from '../../components/Pizza/Pizza';
 import OrderMaker from '../../components/OrderMaker/OrderMaker';
 import Backdrop from '../../Layout/UI/Backdrop/Backdrop';
 import Modal from '../../Layout/UI/Modal/Modal';
-import * as actionTypes from '../../store/actions';
+import * as actions from '../../store/actions/index';
 
 class PizzaBuilder extends Component {
   state = {
@@ -62,16 +62,15 @@ class PizzaBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice,
+    ingredients: state.pizzaBuilder.ingredients,
+    price: state.pizzaBuilder.totalPrice,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleIngredient: (igType) =>
-      dispatch({ type: actionTypes.TOGGLE_INGREDIENT, igType }),
-    resetIngredients: () => dispatch({ type: actionTypes.INGREDIENTS_RESET }),
+    toggleIngredient: (igType) => dispatch(actions.toggleIngredient(igType)),
+    resetIngredients: () => dispatch(actions.ingredientsReset()),
   };
 };
 

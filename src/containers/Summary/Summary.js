@@ -25,8 +25,8 @@ class Summary extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice,
+    ingredients: state.pizzaBuilder.ingredients,
+    price: state.pizzaBuilder.totalPrice,
   };
 };
 
