@@ -9,11 +9,13 @@ import thunk from 'redux-thunk';
 
 import { BrowserRouter } from 'react-router-dom';
 import PizzaBuilderReducer from './store/reducers/PizzaBuilder';
+import OrderFormReducer from './store/reducers/Orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   pizzaBuilder: PizzaBuilderReducer,
+  orders: OrderFormReducer,
 });
 
 const store = createStore(

@@ -5,7 +5,7 @@ import styles from './Order.module.css';
 const order = (props) => {
   let ingredients = '';
   for (let ig in props.ingredients) {
-    if (props.ingredients[ig] === 'true') ingredients += `${ig}, `;
+    if (props.ingredients[ig]) ingredients += `${ig}, `;
   }
 
   return (
@@ -17,7 +17,7 @@ const order = (props) => {
         <strong>Ingredients:</strong> {ingredients.slice(0, -2)}
       </p>
       <p>
-        <strong>Price:</strong> {props.price}$
+        <strong>Price:</strong> {Number(props.price).toFixed(2)}$
       </p>
     </div>
   );

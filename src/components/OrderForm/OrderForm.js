@@ -4,13 +4,12 @@ import { withRouter } from 'react-router-dom';
 
 import styles from './OrderForm.module.css';
 import Button from '../../Layout/UI/Buttons/Buttons';
-import axios from '../../axiosOrders';
 import Spinner from '../../Layout/UI/Spinner/Spinner';
 import Input from '../Input/Input';
+import * as actions from '../../store/actions/index';
 
 class OrderForm extends Component {
   state = {
-    loading: false,
     formValid: false,
     orderForm: {
       name: {
@@ -107,27 +106,12 @@ class OrderForm extends Component {
 
   postDataHandler = async (event) => {
     event.preventDefault();
-
-    try {
-      this.setState({ loading: true });
-      const contactData = {};
-      for (let dataType in this.state.orderForm) {
-        contactData[dataType] = this.state.orderForm[dataType].value;
-      }
-
-      const data = {
-        ingredients: this.props.ingredients,
-        price: this.props.price.toFixed(2),
-        contactData,
-      };
-
-      await axios.post('/orders.json', data);
-      this.setState({ loading: false });
-      this.props.history.push('/');
-    } catch (error) {
-      this.setState({ loading: false });
-      console.log(error);
-    }
+    await this.props.onPostData(
+      this.state.orderForm,
+      this.props.ingredients,
+      this.props.price
+    );
+    this.props.history.push('/');
   };
 
   changedInputHandler = (event, id) => {
@@ -144,7 +128,6 @@ class OrderForm extends Component {
         ? (formValid = true)
         : (formValid = false);
     }
-    console.log(formValid);
     this.setState({ orderForm, formValid });
   };
 
@@ -190,7 +173,7 @@ class OrderForm extends Component {
     }
 
     let content = null;
-    this.state.loading
+    this.props.loading
       ? (content = <Spinner />)
       : (content = (
           <form className={styles.OrderForm} onSubmit={this.postDataHandler}>
@@ -208,7 +191,18 @@ const mapStateToProps = (state) => {
   return {
     ingredients: state.pizzaBuilder.ingredients,
     price: state.pizzaBuilder.totalPrice,
+    loading: state.orders.loading,
   };
 };
 
-export default connect(mapStateToProps)(withRouter(OrderForm));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPostData: (orderForm, ingredients, price) =>
+      dispatch(actions.postData(orderForm, ingredients, price)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(OrderForm));

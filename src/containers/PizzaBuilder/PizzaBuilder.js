@@ -34,16 +34,14 @@ class PizzaBuilder extends Component {
   };
 
   render() {
-    let backdrop = null;
-    if (this.state.showBackdrop)
-      backdrop = (
-        <Backdrop toggleBackdrop={this.toggleBackdropHandler}>
-          <Modal
-            gotoSummary={this.gotoSummaryHandler}
-            toggleBackdrop={this.toggleBackdropHandler}
-          />
-        </Backdrop>
-      );
+    const backdrop = this.state.showBackdrop ? (
+      <Backdrop toggleBackdrop={this.toggleBackdropHandler}>
+        <Modal
+          gotoSummary={this.gotoSummaryHandler}
+          toggleBackdrop={this.toggleBackdropHandler}
+        />
+      </Backdrop>
+    ) : null;
 
     return (
       <div className={styles.PizzaBuilder}>
