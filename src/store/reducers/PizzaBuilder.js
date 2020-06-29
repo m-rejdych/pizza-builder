@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const PRICES = {
   pizzaDough: 6.99,
@@ -21,26 +22,31 @@ const initialState = {
   totalPrice: PRICES.pizzaDough,
 };
 
+const toggleIngredient = (state, action) => {
+  let newPrice = null;
+  state.ingredients[action.igType]
+    ? (newPrice = 0 - PRICES[action.igType])
+    : (newPrice = PRICES[action.igType]);
+  const newIngredients = updateObject(state.ingredients, {
+    [action.igType]: !state.ingredients[action.igType],
+  });
+  return updateObject(state, {
+    ingredients: newIngredients,
+    totalPrice: state.totalPrice + newPrice,
+  });
+};
+
+const ingredientsReset = (state, action) => {
+  return updateObject(initialState);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.TOGGLE_INGREDIENT:
-      let newPrice = null;
-      state.ingredients[action.igType]
-        ? (newPrice = 0 - PRICES[action.igType])
-        : (newPrice = PRICES[action.igType]);
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.igType]: !state.ingredients[action.igType],
-        },
-        totalPrice: state.totalPrice + newPrice,
-      };
+      return toggleIngredient(state, action);
 
     case actionTypes.INGREDIENTS_RESET:
-      return {
-        ...initialState,
-      };
+      return ingredientsReset(state, action);
 
     default:
       return state;

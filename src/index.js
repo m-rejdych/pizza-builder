@@ -5,11 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
-import { BrowserRouter } from 'react-router-dom';
-import PizzaBuilderReducer from './store/reducers/PizzaBuilder';
-import OrderFormReducer from './store/reducers/Orders';
+import PizzaBuilderReducer from './store/reducers/pizzaBuilder';
+import OrderFormReducer from './store/reducers/orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

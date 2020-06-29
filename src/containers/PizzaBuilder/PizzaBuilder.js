@@ -14,13 +14,7 @@ class PizzaBuilder extends Component {
   };
 
   componentDidMount() {
-    if (
-      Object.keys(this.props.ingredients).some(
-        (ingredient) => !this.props.ingredients[ingredient]
-      )
-    ) {
-      this.props.resetIngredients();
-    }
+    this.props.resetIngredients();
   }
 
   toggleBackdropHandler = () => {

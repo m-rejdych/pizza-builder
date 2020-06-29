@@ -1,2 +1,2 @@
-export { toggleIngredient, ingredientsReset } from './PizzaBuilder';
-export { postData, fetchData } from './Orders';
+export { toggleIngredient, ingredientsReset } from './pizzaBuilder';
+export { postData, fetchData } from './orders';
